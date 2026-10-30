@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú - KIRY'FOOD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--fondo:#0a0a0a;--fondo2:#1a0a0c;--tarjeta:#141111;--borde:rgba(255,255,255,.07);--vino:#e5262f;--vino2:#ff3b44;--oro:#ffc533;--texto:#f3f4f6;--gris:#9ca3af;--error:#e35d5d;--ok:#2ecc71;--display:'Anton','Impact',sans-serif;--serif:'Playfair Display',serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--fondo);color:var(--gris);padding-bottom:110px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
+.oro{background:linear-gradient(100deg,#e08a00,var(--oro) 30%,#fff7c9 50%,var(--oro) 70%,#e08a00);background-size:250% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:brillo 6s linear infinite}
+@keyframes brillo{to{background-position:-250% center}}
+
+/* Intro */
+#intro{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,rgba(229,38,47,.3),transparent 55%),linear-gradient(160deg,var(--fondo2),var(--fondo) 60%);transition:opacity .6s ease,visibility .6s ease}
+#intro.oculta{opacity:0;visibility:hidden;pointer-events:none}
+#intro .aro{width:190px;height:190px;border-radius:50%;padding:6px;border:1px solid rgba(255,197,51,.5);box-shadow:0 0 0 10px rgba(255,197,51,.06),0 20px 50px rgba(0,0,0,.7);animation:revelar 1.2s cubic-bezier(.2,.8,.2,1) both}
+#intro img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#1a1a1a}
+@keyframes revelar{from{opacity:0;transform:scale(.8);filter:blur(12px)}to{opacity:1;transform:none;filter:none}}
+#intro h2{margin-top:26px;font-family:var(--display);font-weight:400;font-size:30px;letter-spacing:4px;opacity:0;animation:subir .8s ease .5s forwards,brillo 6s linear infinite}
+.puntos{display:flex;gap:6px;margin-top:16px;opacity:0;animation:subir .6s ease .9s forwards}
+.puntos span{width:6px;height:6px;border-radius:50%;background:var(--oro);animation:rebote 1.2s infinite ease-in-out}
+.puntos span:nth-child(2){animation-delay:.15s}.puntos span:nth-child(3){animation-delay:.3s}
+@keyframes rebote{0%,80%,100%{transform:none;opacity:.4}40%{transform:translateY(-6px);opacity:1}}
+@keyframes subir{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.btn-iniciar{margin-top:30px;border:0;padding:15px 46px;border-radius:40px;background:linear-gradient(120deg,var(--oro),#ff9f1c);color:#1a1305;font-weight:600;font-size:14px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;opacity:0;animation:subir .6s ease 1.1s forwards;box-shadow:0 8px 24px rgba(255,197,51,.35)}
+
+/* Barra superior */
+.barra-top{position:sticky;top:0;z-index:300;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:rgba(10,10,10,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--borde)}
+.marca{display:flex;align-items:center;gap:10px;color:var(--texto);font-family:var(--display);font-size:17px;letter-spacing:2px}
+.marca img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,197,51,.5);background:#1a1a1a}
+.btn-sonido{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,197,51,.35);background:rgba(255,255,255,.05);color:var(--oro);font-size:16px;cursor:pointer}
+
+/* Portada */
+.hero{position:relative;text-align:center;padding:54px 22px 44px;background:radial-gradient(ellipse at 50% 0%,rgba(229,38,47,.32),transparent 65%)}
+.hero-logo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,197,51,.45);padding:5px;background:#1a1a1a;box-shadow:0 14px 40px rgba(0,0,0,.6)}
+.hero h1{margin-top:26px;font-family:var(--display);font-weight:400;font-size:clamp(30px,8vw,52px);line-height:1;letter-spacing:1px;color:var(--texto);text-transform:uppercase}
+.hero h1 em{display:block;margin-top:6px;font-family:var(--serif);font-style:italic;font-weight:600;font-size:.58em;letter-spacing:0;text-transform:none;color:var(--oro)}
+.hero p{max-width:420px;margin:16px auto 0;font-size:14px;line-height:1.7;font-weight:300}
+.estado{display:inline-flex;align-items:center;gap:9px;margin-top:22px;padding:9px 18px;border-radius:30px;background:rgba(255,255,255,.04);border:1px solid var(--borde);font-size:13px;font-weight:500;color:var(--texto)}
+.punto{width:9px;height:9px;border-radius:50%;flex-shrink:0;background:var(--gris)}
+.punto.abierto{background:var(--ok);box-shadow:0 0 9px rgba(46,204,113,.7);animation:pulso 1.8s infinite}
+.punto.cerrado{background:var(--error);box-shadow:0 0 9px rgba(227,93,93,.5)}
+@keyframes pulso{50%{opacity:.35}}
+.cta{display:block;width:fit-content;margin:26px auto 0;padding:15px 38px;border-radius:40px;background:var(--vino);color:#fff;text-decoration:none;font-weight:600;font-size:14px;letter-spacing:1px;box-shadow:0 8px 22px rgba(229,38,47,.45);transition:background .2s,transform .2s}
+.cta:hover{background:var(--vino2);transform:translateY(-2px)}
+.datos{display:grid;grid-template-columns:repeat(3,1fr);max-width:640px;margin:38px auto 0;border-top:1px solid rgba(255,197,51,.25);border-bottom:1px solid rgba(255,197,51,.25)}
+.datos div{padding:14px 6px;font-size:11.5px;line-height:1.4}
+.datos div+div{border-left:1px solid rgba(255,197,51,.2)}
+.datos b{display:block;color:var(--oro);font-size:14px;font-weight:600;margin-bottom:2px}
+
+/* Menú */
+.seccion{max-width:1050px;margin:0 auto;padding:56px 18px 0}
+.seccion h2{text-align:center;font-family:var(--display);font-weight:400;font-size:clamp(24px,6.5vw,34px);letter-spacing:1px;text-transform:uppercase;color:var(--texto)}
+.seccion .sub{text-align:center;margin:8px 0 30px;font-size:13px;font-weight:300}
+.rejilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px}
+.tarjeta{position:relative;display:flex;flex-direction:column;overflow:hidden;background:var(--tarjeta);border:1px solid var(--borde);border-radius:18px;box-shadow:0 12px 28px rgba(0,0,0,.45);opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease,border-color .3s}
+.tarjeta.visible{opacity:1;transform:none}
+.tarjeta:hover{border-color:rgba(255,197,51,.4)}
+.insignia{position:absolute;top:12px;left:12px;z-index:2;padding:6px 12px;border-radius:20px;background:rgba(10,10,10,.8);border:1px solid rgba(255,197,51,.55);color:var(--oro);font-size:11px;font-weight:600;letter-spacing:.5px}
+.medio{background:#1a1a1a;border-bottom:2px solid rgba(255,197,51,.5)}
+.video{display:block;width:100%;aspect-ratio:1536/1020;object-fit:contain;background:#1a1a1a;opacity:0;transition:opacity .5s}
+.video.cargada{opacity:1}
+.cuerpo{display:flex;flex-direction:column;flex-grow:1;padding:22px}
+.cuerpo h3{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:18px;font-weight:600;color:var(--texto);margin-bottom:8px}
+.cuerpo p{flex-grow:1;font-size:13px;font-weight:300;line-height:1.65;margin-bottom:20px}
+.pie{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:16px;border-top:1px solid var(--borde)}
+.precio{font-family:var(--display);font-size:24px;letter-spacing:.5px;color:var(--oro)}
+.btn-comprar{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:12px;padding:12px 18px;background:var(--vino);color:#fff;font-weight:600;font-size:13px;cursor:pointer;box-shadow:0 6px 16px rgba(229,38,47,.4);transition:background .2s,transform .15s}
+.btn-comprar:hover{background:var(--vino2)}
+.btn-comprar:active{transform:scale(.96)}
+
+/* Cierre */
+.cierre{max-width:520px;margin:70px auto 0;padding:40px 24px;text-align:center;border-top:1px solid rgba(255,197,51,.25)}
+.cierre h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,7vw,38px);line-height:1.05;text-transform:uppercase;color:var(--texto)}
+.cierre h2 em{font-family:var(--serif);font-style:italic;font-weight:600;text-transform:none;color:var(--oro)}
+.cierre .horario{margin:16px 0 22px;font-size:14px;line-height:1.8}
+.cierre .horario b{color:var(--texto);font-weight:500}
+.btn-wa-grande{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:40px;background:linear-gradient(120deg,#1ebd59,#25D366);color:#06210f;text-decoration:none;font-weight:600;font-size:15px;box-shadow:0 8px 22px rgba(37,211,102,.3)}
+.copy{margin-top:34px;font-size:11px;color:#6b7280;letter-spacing:1px}
+.copy span{color:var(--oro)}
+.wa-flotante{position:fixed;right:18px;bottom:18px;z-index:500;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;background:linear-gradient(145deg,#25D366,#1ebd59);box-shadow:0 8px 24px rgba(37,211,102,.45)}
+
+/* Carrito y modales */
+.barra-carrito{position:fixed;left:16px;right:90px;bottom:18px;z-index:600;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;border-radius:16px;background:linear-gradient(120deg,#1a1414,#100c0c);border:1px solid rgba(255,197,51,.45);box-shadow:0 10px 30px rgba(0,0,0,.6);transform:translateY(160%);opacity:0;pointer-events:none;transition:transform .3s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.barra-carrito.visible{transform:none;opacity:1;pointer-events:auto}
+.barra-info{font-size:13px;color:var(--texto);line-height:1.3}
+.barra-info span{color:var(--oro);font-weight:700}
+.barra-btn{flex-shrink:0;border:0;border-radius:12px;padding:11px 18px;background:var(--oro);color:#1a1305;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap}
+.modal{position:fixed;inset:0;z-index:9500;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.68);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+.modal.abierto{opacity:1;visibility:visible}
+.caja{width:100%;max-width:460px;max-height:90vh;overflow-y:auto;padding:26px 22px;background:linear-gradient(165deg,#171212,#0e0b0b);border:1px solid rgba(255,197,51,.3);border-radius:24px 24px 0 0;transform:translateY(30px);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.modal.abierto .caja{transform:none}
+@media(min-width:560px){.modal{align-items:center}.caja{border-radius:24px}.barra-carrito{left:50%;right:auto;width:420px;transform:translate(-50%,160%)}.barra-carrito.visible{transform:translate(-50%,0)}}
+.manija{width:40px;height:4px;margin:0 auto 18px;border-radius:4px;background:rgba(255,255,255,.15)}
+.enc{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.enc-nombre{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--texto)}
+.enc-precio{margin-top:4px;font-size:15px;font-weight:600;color:var(--oro)}
+.x{flex-shrink:0;width:32px;height:32px;border:0;border-radius:50%;background:rgba(255,255,255,.07);color:#fff;cursor:pointer}
+.campo{margin-bottom:20px}
+.campo label{display:block;margin-bottom:10px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--texto)}
+.campo .op{text-transform:none;letter-spacing:0;font-size:12px;font-weight:400;color:#6b7280}
+.campo input{width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--borde);background:rgba(255,255,255,.04);color:var(--texto);font-size:16px;outline:none}
+.campo input:focus{border-color:rgba(255,197,51,.55)}
+.campo input.campo-error{border-color:var(--error)}
+.msj-error{display:none;margin-top:6px;font-size:12px;color:var(--error)}
+.msj-error.visible{display:block}
+.cantidad{display:flex;align-items:center;gap:16px;width:fit-content;padding:6px 8px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--borde)}
+.cantidad button{width:34px;height:34px;border:0;border-radius:10px;background:rgba(255,255,255,.07);color:var(--texto);font-size:18px;cursor:pointer}
+.cantidad button:hover{background:var(--oro);color:#1a1305}
+.cantidad span{min-width:22px;text-align:center;font-size:17px;font-weight:600;color:var(--texto)}
+.cantidad.mini{padding:4px 6px;gap:8px}.cantidad.mini button{width:26px;height:26px;font-size:15px}.cantidad.mini span{min-width:14px;font-size:14px}
+.nota{margin-bottom:12px;font-size:14px;line-height:1.5;color:var(--texto)}
+.ingredientes{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:10px}
+.chip{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid rgba(46,204,113,.45);background:rgba(46,204,113,.08);color:var(--texto);font-size:13px;text-align:left;cursor:pointer;transition:all .25s}
+.chip i{display:flex;align-items:center;justify-content:center;width:18px;height:18px;flex-shrink:0;border-radius:50%;background:var(--ok);color:#06210f;font-size:11px;font-style:normal;font-weight:700}
+.chip.excluido{border-color:rgba(227,93,93,.45);background:rgba(227,93,93,.08);color:var(--gris)}
+.chip.excluido i{background:var(--error);color:#2a0b0b}
+.chip.excluido span{text-decoration:line-through;text-decoration-color:rgba(227,93,93,.6)}
+.resumen{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding:14px 16px;border-radius:12px;background:rgba(255,197,51,.07);border:1px solid rgba(255,197,51,.2)}
+.resumen span:first-child{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--texto)}
+.resumen span:last-child{font-size:19px;font-weight:700;color:var(--oro)}
+.btn-verde{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border:0;border-radius:12px;background:linear-gradient(120deg,#1ebd59,#25D366);color:#06210f;font-weight:600;font-size:15px;cursor:pointer;box-shadow:0 8px 20px rgba(37,211,102,.3)}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--borde)}
+.item-nombre{font-size:15px;font-weight:600;color:var(--texto)}
+.item-det{margin-top:3px;font-size:12px}
+.item-precio{margin-top:5px;font-size:14px;font-weight:600;color:var(--oro)}
+.item-ctrl{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.quitar{width:34px;height:34px;border-radius:10px;border:1px solid rgba(227,93,93,.35);background:rgba(227,93,93,.08);color:var(--error);cursor:pointer}
+.titulo-datos{margin:18px 0;text-align:center;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--oro)}
+.nota-dom{margin-bottom:14px;text-align:center;font-size:15px;font-weight:500;color:var(--texto)}
+.nota-dom span{color:var(--oro);font-weight:700}
+
+.ic{width:1.2em;height:1.2em;flex-shrink:0}
+[data-icono]{display:inline-flex}
+.btn-sonido{display:flex;align-items:center;justify-content:center}.btn-sonido .ic{width:18px;height:18px}
+.quitar{display:flex;align-items:center;justify-content:center}.quitar .ic{width:16px;height:16px}
+.wa-flotante{color:#fff}.wa-flotante .ic{width:30px;height:30px}
+.btn-wa-grande .ic{width:20px;height:20px}
+/* Transición de entrada */
+body:not(.entrada) .barra-top,body:not(.entrada) .hero>*{opacity:0}
+body.entrada .barra-top{animation:subir .8s ease .5s both}
+body.entrada .hero>*{animation:subir .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.55s + var(--i,0)*.09s)}
+.hero>:nth-child(2){--i:1}.hero>:nth-child(3){--i:2}.hero>:nth-child(4){--i:3}.hero>:nth-child(5){--i:4}.hero>:nth-child(6){--i:5}.hero>:nth-child(7){--i:6}
+#intro.saliendo{pointer-events:none;animation:iris 1.1s cubic-bezier(.75,0,.2,1) .45s forwards}
+#intro.saliendo .aro{animation:destello .8s ease forwards}
+#intro.saliendo h2,#intro.saliendo .puntos,#intro.saliendo .btn-iniciar{animation:desvanecer .4s ease forwards}
+@keyframes iris{from{clip-path:circle(150% at 50% 50%)}to{clip-path:circle(0% at 50% 50%)}}
+@keyframes destello{0%{transform:none}60%{transform:scale(1.2);box-shadow:0 0 0 14px rgba(255,197,51,.25),0 0 90px rgba(255,197,51,.65)}100%{transform:scale(1.12)}}
+@keyframes desvanecer{to{opacity:0;transform:translateY(-12px)}}
+
+/* Registro (primera vez) */
+.rg-overlay{position:fixed;inset:0;z-index:9200;display:grid;place-items:center;padding:16px;background:rgba(6,3,4,.84);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;overflow:hidden}
+.rg-overlay.abierto{opacity:1;visibility:visible}
+.rg-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:radial-gradient(120% 80% at 80% 10%,rgba(229,38,47,.35),rgba(10,4,5,.4) 55%,transparent)}
+.rg-bg i{position:absolute;left:-40%;width:180%;border-radius:50%;transform:rotate(-26deg);animation:rg-sweep 10s ease-in-out infinite alternate}
+.rg-bg i:nth-child(1){top:8%;height:60px;background:linear-gradient(90deg,transparent,#e5262f,#ff6a5c 50%,#e5262f,transparent);filter:blur(5px);opacity:.6}
+.rg-bg i:nth-child(2){top:34%;height:110px;background:linear-gradient(90deg,transparent,#5a1a1f,#a8433d 50%,#5a1a1f,transparent);filter:blur(14px);opacity:.45;animation-delay:-4s}
+.rg-bg i:nth-child(3){top:62%;height:50px;background:linear-gradient(90deg,transparent,#e08a00,#ffc533 50%,#e08a00,transparent);filter:blur(6px);opacity:.5;animation-delay:-7s}
+.rg-bg i:nth-child(4){top:86%;height:100px;background:linear-gradient(90deg,transparent,#2a1114,#6b3a32 50%,#2a1114,transparent);filter:blur(14px);opacity:.4;animation-delay:-2s}
+@keyframes rg-sweep{from{transform:translateX(-7%) rotate(-26deg)}to{transform:translateX(7%) rotate(-21deg)}}
+.rg-card{--c:30px;position:relative;z-index:1;width:var(--w,min(360px,calc(100vw - 32px)));height:var(--h,470px);max-height:calc(100dvh - 24px);padding:1px;background:linear-gradient(135deg,rgba(255,197,51,.85),rgba(229,38,47,.25) 40%,rgba(255,197,51,.55));clip-path:polygon(0 var(--c),var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%);transition:width .7s cubic-bezier(.65,0,.25,1),height .7s cubic-bezier(.65,0,.25,1)}
+.rg-glass{position:relative;width:100%;height:100%;overflow:hidden;background:linear-gradient(160deg,rgba(52,16,22,.86),rgba(14,8,9,.94));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);clip-path:polygon(0 calc(var(--c) - .4px),calc(var(--c) - .4px) 0,100% 0,100% calc(100% - var(--c) + .4px),calc(100% - var(--c) + .4px) 100%,0 100%)}
+.rg-view{position:absolute;inset:0;padding:30px 22px 20px;display:none;overflow-y:auto}
+.rg-view.on{display:block}
+.rg-view.out{opacity:0;filter:blur(12px);transform:scale(.96);transition:opacity .35s,filter .35s,transform .35s}
+.rg-view.in .rg-st{animation:rg-blurin .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 70ms)}
+@keyframes rg-blurin{from{opacity:0;filter:blur(10px);transform:translateY(10px)}to{opacity:1;filter:none;transform:none}}
+.rg-view h2{margin:0 0 6px;font-family:var(--display);font-weight:400;font-size:26px;letter-spacing:1px;text-transform:uppercase;color:var(--texto)}
+.rg-view h2 b{font-family:var(--serif);font-style:italic;font-weight:600;text-transform:none;letter-spacing:0;color:var(--oro)}
+.rg-sub{margin:0 0 10px;font-size:12.5px;line-height:1.5;color:var(--gris)}
+.rg-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rg-l{display:block;margin:12px 0 5px;font-size:12px;color:var(--texto)}
+.rg-f{position:relative}
+.rg-f input{width:100%;height:44px;padding:0 12px 0 38px;border-radius:9px;border:1px solid rgba(255,197,51,.2);background:rgba(20,8,10,.7);color:var(--texto);font-size:16px;outline:none;transition:border-color .25s,box-shadow .25s}
+.rg-f input::placeholder{color:rgba(243,244,246,.3)}
+.rg-f input:focus{border-color:var(--oro);box-shadow:0 0 0 3px rgba(255,197,51,.22)}
+.rg-f svg{position:absolute;left:12px;top:13px;width:17px;height:17px;stroke:var(--gris);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rg-f:focus-within svg{stroke:var(--oro)}
+.rg-err{min-height:18px;margin:10px 0 8px;font-size:12px;color:#ff8a8a;opacity:0;transition:opacity .25s}
+.rg-err.show{opacity:1}
+.rg-btn{position:relative;overflow:hidden;width:100%;height:46px;border:0;border-radius:10px;font-weight:600;font-size:14px;color:#1a1305;background:linear-gradient(90deg,#ff9f1c,#ffc533);cursor:pointer;transition:transform .2s,box-shadow .3s}
+.rg-btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:rg-shine 3.6s ease-in-out infinite}
+@keyframes rg-shine{0%,55%{left:-60%}100%{left:140%}}
+.rg-btn:hover{box-shadow:0 0 24px rgba(255,197,51,.5);transform:translateY(-2px)}
+.rg-btn:active{transform:scale(.98)}
+.rg-skip{display:block;margin:14px auto 0;padding:6px;border:0;background:none;color:var(--gris);font-size:12px;text-decoration:underline;cursor:pointer}
+.rg-skip:hover{color:var(--texto)}
+.rg-shake{animation:rg-shake .45s}
+@keyframes rg-shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.rg-loader{position:absolute;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.rg-loader.on{opacity:1}
+.rg-logo{position:relative;width:56px;height:56px;border-radius:50%;object-fit:cover;background:#1a1a1a;box-shadow:0 0 30px rgba(255,197,51,.6)}
+.rg-ring{position:absolute;width:60px;height:60px;border-radius:50%;border:2px solid rgba(255,197,51,.6);animation:rg-ring 1.3s ease-out infinite}
+.rg-ring:nth-child(2){animation-delay:.45s}
+@keyframes rg-ring{from{transform:scale(.8);opacity:.9}to{transform:scale(2.6);opacity:0}}
+.rg-ok{text-align:center;padding-top:44px}
+.rg-chk{width:76px;height:76px;margin:0 auto 18px;display:block}
+.rg-chk circle{fill:rgba(255,197,51,.15);stroke:var(--oro);stroke-width:2.5;stroke-dasharray:190;stroke-dashoffset:190;animation:rg-draw .7s .2s ease forwards}
+.rg-chk path{fill:none;stroke:#fff1b8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50;animation:rg-draw .5s .8s ease forwards}
+@keyframes rg-draw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tarjeta{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<audio id="audioBienvenida" preload="none"></audio>
+
+<div id="intro">
+  <div class="aro"><img data-img="logo" alt="KIRY'FOOD"></div>
+  <h2 class="oro">KIRY'FOOD</h2>
+  <div class="puntos"><span></span><span></span><span></span></div>
+  <button id="btnIniciar" class="btn-iniciar">Iniciar</button>
+</div>
+
+<div class="barra-top">
+  <div class="marca"><img data-img="logo" alt="KIRY'FOOD"><span>KIRY'FOOD</span></div>
+  <button id="btnSonido" class="btn-sonido" title="Silenciar / Activar sonido"></button>
+</div>
+
+<header class="hero">
+  <img data-img="logo" class="hero-logo" alt="KIRY'FOOD">
+  <h1>Sabor casero<em>estilo callejero</em></h1>
+  <p>Salchipapas con todo, preparadas al momento. Elige tu tamaño favorito y pídelo directo por WhatsApp.</p>
+  <div class="estado"><span class="punto" id="puntoEstado"></span><span id="textoEstado">Consultando horario…</span></div>
+  <a href="#menu" class="cta">Ver el menú</a>
+  <div class="datos">
+    <div><b>WhatsApp</b>Pide fácil</div>
+    <div><b id="datoDomicilio">$2.000</b>Domicilio</div>
+    <div><b>6 – 11 pm</b>Sáb y dom</div>
+  </div>
+</header>
+
+<section class="seccion" id="menu">
+  <h2>Nuestras Salchipapas</h2>
+  <p class="sub">Elige tu tamaño favorito</p>
+  <div class="rejilla" id="contenedorMenu"></div>
+</section>
+
+<footer class="cierre">
+  <h2>¿Listo <em>para pedir?</em></h2>
+  <div class="horario"><b>Solo fines de semana:</b> 6:00 pm – 11:00 pm</div>
+  <a class="btn-wa-grande" href="https://wa.me/573016851905" target="_blank" rel="noopener"><span data-icono="wa"></span> Escríbenos por WhatsApp</a>
+  <div class="copy">Hecho con <span>♥</span> por KIRY'FOOD &middot; Pedidos por WhatsApp</div>
+</footer>
+
+<a href="https://wa.me/573016851905" class="wa-flotante" target="_blank" rel="noopener" title="Escríbenos por WhatsApp"><span data-icono="wa"></span></a>
+
+<div id="barraCarrito" class="barra-carrito">
+  <div class="barra-info"><span id="carritoCantidad">0</span> productos · <span id="carritoTotalBarra">$0</span></div>
+  <button type="button" id="btnVerCarrito" class="barra-btn">Ver pedido</button>
+</div>
+
+<div id="modalPedido" class="modal">
+  <div class="caja">
+    <div class="manija"></div>
+    <div class="enc">
+      <div><div class="enc-nombre" id="mpNombre">Producto</div><div class="enc-precio" id="mpPrecio">$0</div></div>
+      <button class="x" id="mpCerrar" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="campo"><label>Cantidad</label>
+      <div class="cantidad"><button type="button" id="mpMenos">−</button><span id="mpCantidad">1</span><button type="button" id="mpMas">+</button></div>
+    </div>
+    <div class="campo"><label>¿Deseas quitar algún ingrediente?</label>
+      <div class="nota">Todos vienen incluidos por defecto. Toca el ingrediente que deseas retirar de tu comida.</div>
+      <div class="ingredientes" id="gridIngredientes"></div>
+    </div>
+    <div class="resumen"><span>Subtotal</span><span id="mpTotal">$0</span></div>
+    <button class="btn-verde" id="mpAgregar"><span data-icono="carrito"></span> Agregar al carrito</button>
+  </div>
+</div>
+
+<div id="modalCarrito" class="modal">
+  <div class="caja">
+    <div class="manija"></div>
+    <div class="enc">
+      <div><div class="enc-nombre">Tu pedido</div><div class="enc-precio" id="mcCantidadResumen">0 productos</div></div>
+      <button class="x" id="mcCerrar" aria-label="Cerrar">✕</button>
+    </div>
+    <div id="listaCarrito"></div>
+    <div id="carritoVacio" class="nota" style="text-align:center;padding:6px 0 22px">Aún no has agregado productos. Cierra esta ventana y toca "Agregar" en el producto que quieras.</div>
+    <div id="carritoContenido">
+      <div class="titulo-datos">Datos para tu pedido</div>
+      <div class="campo"><label>Nombre completo</label><input type="text" id="mcNombreCliente" placeholder="Ej: Juan Pérez"><div class="msj-error" id="mcErrorNombre">Por favor escribe tu nombre completo.</div></div>
+      <div class="campo"><label>Dirección de entrega</label><input type="text" id="mcDireccion" placeholder="Ej: Calle 18 # 25-40, Barrio Centro"><div class="msj-error" id="mcErrorDireccion">Por favor escribe tu dirección de entrega.</div></div>
+      <div class="campo"><label>Punto de referencia <span class="op">(opcional)</span></label><input type="text" id="mcReferencia" placeholder="Ej: Frente al parque, casa azul"></div>
+      <div class="nota-dom">* El total incluye <span id="mcNotaDomicilio">$2.000</span> de domicilio</div>
+      <div class="resumen"><span>Total del pedido</span><span id="mcTotal">$0</span></div>
+      <button class="btn-verde" id="mcEnviar"><span data-icono="wa"></span> Pedir por WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<div id="registro" class="rg-overlay" role="dialog" aria-modal="true" aria-labelledby="rgTitulo">
+  <div class="rg-bg" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="rg-card" id="rgCard"><div class="rg-glass">
+    <div class="rg-loader" id="rgLoader"><span class="rg-ring"></span><span class="rg-ring"></span><img class="rg-logo" data-img="logo" alt=""></div>
+    <form class="rg-view" id="rgForm" novalidate>
+      <h2 id="rgTitulo" class="rg-st" style="--i:0">Crea tu <b>cuenta</b></h2>
+      <p class="rg-sub rg-st" style="--i:1">Guarda tus datos y pide más rápido la próxima vez.</p>
+      <label class="rg-l rg-st" style="--i:2" for="rgNombre">Nombre completo</label>
+      <div class="rg-f rg-st" style="--i:2"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><input id="rgNombre" autocomplete="name" placeholder="Juan Pérez"></div>
+      <label class="rg-l rg-st" style="--i:3" for="rgCorreo">Correo electrónico</label>
+      <div class="rg-f rg-st" style="--i:3"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><input id="rgCorreo" type="email" autocomplete="email" placeholder="nombre@dominio.com"></div>
+      <label class="rg-l rg-st" style="--i:3" for="rgTel">Celular</label>
+      <div class="rg-f rg-st" style="--i:3"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><input id="rgTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="300 123 4567"></div>
+      <label class="rg-l rg-st" style="--i:4" for="rgDir">Dirección de entrega</label>
+      <div class="rg-f rg-st" style="--i:4"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><input id="rgDir" autocomplete="street-address" placeholder="Calle 18 # 25-40, Barrio Centro"></div>
+      <div class="rg-two rg-st" style="--i:5">
+        <div><label class="rg-l" for="rgClave">Contraseña</label><div class="rg-f"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><input id="rgClave" type="password" autocomplete="new-password" placeholder="Mín. 6"></div></div>
+        <div><label class="rg-l" for="rgClave2">Confirmar</label><div class="rg-f"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><input id="rgClave2" type="password" autocomplete="new-password" placeholder="Repetir"></div></div>
+      </div>
+      <p class="rg-err" id="rgErr" role="alert"></p>
+      <button class="rg-btn rg-st" style="--i:6" type="submit">Crear cuenta</button>
+      <button class="rg-skip rg-st" style="--i:7" id="rgOmitir" type="button">Ahora no, ver el menú</button>
+    </form>
+    <div class="rg-view rg-ok" id="rgOk">
+      <svg class="rg-chk rg-st" style="--i:0" viewBox="0 0 80 80"><circle cx="40" cy="40" r="30"/><path d="M27 41l9 9 18-20"/></svg>
+      <h2 class="rg-st" style="--i:2">Bienvenido, <b id="rgNombreOk"></b></h2>
+      <p class="rg-sub rg-st" style="--i:3">Ya puedes hacer tu pedido. Tus datos quedan guardados en este celular.</p>
+    </div>
+  </div></div>
+</div>
+
+<script>
+const CONFIG = {
+  audio: "https://res.cloudinary.com/nbf1ok8z/video/upload/v1788013653/WhatsApp_Video_2026-08-29_at_8.51.33_AM.mp4",
+  imagenes: {
+    logo: "https://res.cloudinary.com/nbf1ok8z/image/upload/v1788301683/WhatsApp_Image_2026-09-01_at_5.27.40_PM.jpg",
+    mini: "",
+  },
+  // Enlace .mp4 de cada producto. Si dejas un valor vacío "", esa tarjeta se queda sin video.
+  videos: {
+    mini:      "https://res.cloudinary.com/nbf1ok8z/video/upload/v1788300074/WhatsApp_Video_2026-08-31_at_10.33.24_AM.mp4",
+    sencilla:  "https://res.cloudinary.com/nbf1ok8z/video/upload/v1788306311/WhatsApp_Video_2026-08-31_at_10.33.28_AM.mp4",
+    butifarra: "https://res.cloudinary.com/nbf1ok8z/video/upload/v1788306411/WhatsApp_Video_2026-08-31_at_10.33.36_AM.mp4",
+    pollo:     "https://res.cloudinary.com/nbf1ok8z/video/upload/v1788408015/WhatsApp_Video_2026-09-02_at_2.19.36_PM.mp4",
+    mixta:     "https://res.cloudinary.com/nbf1ok8z/video/upload/v1788408112/WhatsApp_Video_2026-09-02_at_2.19.35_PM.mp4",
+  }
+};
+const NUMERO_WHATSAPP = '573016851905';
+const COSTO_DOMICILIO = 2000;
+const SALSAS = 'papa chongo, lechuga, queso, salsa tártara, salsa rosada, salsa de piña y salsa de mostaza preparada.';
+const PRODUCTOS = [
+  { clave:'mini',      nombre:'Mini Salchipapa',        precio:5000,  desc:'Papa, salchicha, ' + SALSAS },
+  { clave:'sencilla',  nombre:'Salchipapa Sencilla',    precio:7000,  desc:'Papa, salchicha, ' + SALSAS },
+  { clave:'butifarra', nombre:'Salchipapa de Butifarra',precio:9000,  desc:'Papa, butifarra, ' + SALSAS },
+  { clave:'pollo',     nombre:'Salchipapa de Pollo',    precio:12000, desc:'Papa, pollo desmechado, ' + SALSAS, insignia:'🔥 Más pedida' },
+  { clave:'mixta',     nombre:'Salchipapa Mixta',       precio:14000, desc:'Papa, salchicha, butifarra y pollo desmechado, ' + SALSAS, insignia:'⭐ La más completa' },
+];
+const formatearCOP = n => '$' + n.toLocaleString('es-CO');
+const _st = 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+const _svg = (c, a) => `<svg class="ic" viewBox="0 0 24 24" ${a} aria-hidden="true">${c}</svg>`;
+const ICONOS = {
+  carrito: _svg('<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>', _st),
+  basura:  _svg('<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>', _st),
+  sonidoOn:  _svg('<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', _st),
+  sonidoOff: _svg('<path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/>', _st),
+  wa: _svg('<path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.08-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.8a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.89 9.89-9.89 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 7c0 5.45-4.44 9.88-9.89 9.88zM20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.17-3.48-8.41z"/>', 'fill="currentColor"')
+};
+document.querySelectorAll('[data-icono]').forEach(el => { el.innerHTML = ICONOS[el.dataset.icono]; });
+document.getElementById('datoDomicilio').textContent = formatearCOP(COSTO_DOMICILIO);
+
+/* Tarjetas del menú */
+const contenedorMenu = document.getElementById('contenedorMenu');
+PRODUCTOS.forEach(p => {
+  const t = document.createElement('article');
+  t.className = 'tarjeta';
+  t.innerHTML = `${p.insignia ? `<span class="insignia">${p.insignia}</span>` : ''}
+    <div class="medio"><video data-video="${p.clave}" class="video" muted playsinline preload="metadata" aria-label="${p.nombre}"></video></div>
+    <div class="cuerpo">
+      <h3>${p.nombre}</h3>
+      <p>${p.desc}</p>
+      <div class="pie"><div class="precio">${formatearCOP(p.precio)}</div>
+      <button class="btn-comprar" data-producto="${p.nombre}" data-precio="${p.precio}">${ICONOS.carrito} Agregar</button></div>
+    </div>`;
+  contenedorMenu.appendChild(t);
+});
+
+/* Imágenes y videos */
+document.querySelectorAll('img[data-img]').forEach(img => {
+  const url = CONFIG.imagenes[img.dataset.img];
+  if (url) img.src = url;
+});
+document.querySelectorAll('video[data-video]').forEach(video => {
+  const url = CONFIG.videos[video.dataset.video];
+  video.addEventListener('loadeddata', () => video.classList.add('cargada'), { once:true });
+  video.addEventListener('error', () => video.classList.add('cargada'), { once:true });
+  if (url) video.src = url;
+});
+function iniciarObservadorVideos() {
+  const obs = new IntersectionObserver(entradas => {
+    entradas.forEach(e => {
+      if (e.isIntersecting && e.target.src) {
+        e.target.currentTime = 0;
+        e.target.play().catch(() => {});
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: .35 });
+  document.querySelectorAll('video[data-video]').forEach(v => obs.observe(v));
+}
+const obsTarjetas = new IntersectionObserver(entradas => {
+  entradas.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obsTarjetas.unobserve(e.target); } });
+}, { threshold: .12 });
+document.querySelectorAll('.tarjeta').forEach(t => obsTarjetas.observe(t));
+
+/* Horario */
+(function () {
+  const a = new Date(), dia = a.getDay(), h = a.getHours();
+  const abierto = (dia === 0 || dia === 6) && h >= 18 && h < 23;
+  document.getElementById('puntoEstado').classList.add(abierto ? 'abierto' : 'cerrado');
+  document.getElementById('textoEstado').textContent = abierto ? 'Abierto ahora' : 'Cerrado ahora · Sáb y dom, 6:00 pm – 11:00 pm';
+})();
+
+/* Intro y sonido */
+const audio = document.getElementById('audioBienvenida');
+const btnSonido = document.getElementById('btnSonido');
+const intro = document.getElementById('intro');
+let sonidoActivo = true;
+btnSonido.innerHTML = ICONOS.sonidoOn;
+document.body.style.overflow = 'hidden';
+document.getElementById('btnIniciar').addEventListener('click', () => {
+  audio.src = CONFIG.audio;
+  audio.play().catch(() => {});
+  intro.classList.add('saliendo');
+  document.body.classList.add('entrada');
+  document.body.style.overflow = 'auto';
+  iniciarObservadorVideos();
+  setTimeout(() => intro.remove(), 1700);
+  setTimeout(mostrarRegistro, 1500);
+}, { once:true });
+audio.addEventListener('ended', () => { btnSonido.innerHTML = ICONOS.sonidoOff; });
+btnSonido.addEventListener('click', () => {
+  sonidoActivo = !sonidoActivo;
+  if (sonidoActivo) {
+    if (!audio.src) audio.src = CONFIG.audio;
+    audio.play().catch(() => {});
+    btnSonido.innerHTML = ICONOS.sonidoOn;
+  } else {
+    audio.pause();
+    btnSonido.innerHTML = ICONOS.sonidoOff;
+  }
+});
+
+/* Ingredientes */
+const listaIngredientes = ['Queso','Lechuga','Papa chongo','Salsa tártara','Salsa de piña','Mostaza','Salsa rosada'];
+let estadoIngredientes = {};
+const grid = document.getElementById('gridIngredientes');
+listaIngredientes.forEach(ing => {
+  estadoIngredientes[ing] = true;
+  const chip = document.createElement('button');
+  chip.type = 'button';
+  chip.className = 'chip';
+  chip.dataset.ingrediente = ing;
+  chip.innerHTML = `<i>✓</i><span>${ing}</span>`;
+  chip.addEventListener('click', () => {
+    estadoIngredientes[ing] = !estadoIngredientes[ing];
+    chip.classList.toggle('excluido', !estadoIngredientes[ing]);
+    chip.querySelector('i').textContent = estadoIngredientes[ing] ? '✓' : '✕';
+  });
+  grid.appendChild(chip);
+});
+function resetIngredientes() {
+  document.querySelectorAll('.chip').forEach(chip => {
+    estadoIngredientes[chip.dataset.ingrediente] = true;
+    chip.classList.remove('excluido');
+    chip.querySelector('i').textContent = '✓';
+  });
+}
+
+/* Modal de producto */
+const $ = id => document.getElementById(id);
+const modalPedido = $('modalPedido');
+let pedidoActual = { nombre:'', precio:0, cantidad:1 };
+let carrito = [];
+function actualizarResumen() {
+  $('mpCantidad').textContent = pedidoActual.cantidad;
+  $('mpTotal').textContent = formatearCOP(pedidoActual.precio * pedidoActual.cantidad);
+}
+function abrirModal(nombre, precio) {
+  pedidoActual = { nombre, precio, cantidad:1 };
+  $('mpNombre').textContent = nombre;
+  $('mpPrecio').textContent = formatearCOP(precio);
+  resetIngredientes();
+  actualizarResumen();
+  modalPedido.classList.add('abierto');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarModal() {
+  modalPedido.classList.remove('abierto');
+  document.body.style.overflow = 'auto';
+}
+document.querySelectorAll('.btn-comprar').forEach(btn => {
+  btn.addEventListener('click', () => abrirModal(btn.dataset.producto, parseInt(btn.dataset.precio, 10)));
+});
+$('mpMenos').addEventListener('click', () => { if (pedidoActual.cantidad > 1) { pedidoActual.cantidad--; actualizarResumen(); } });
+$('mpMas').addEventListener('click', () => { pedidoActual.cantidad++; actualizarResumen(); });
+$('mpCerrar').addEventListener('click', cerrarModal);
+modalPedido.addEventListener('click', e => { if (e.target === modalPedido) cerrarModal(); });
+$('mpAgregar').addEventListener('click', () => {
+  carrito.push({
+    nombre: pedidoActual.nombre,
+    precio: pedidoActual.precio,
+    cantidad: pedidoActual.cantidad,
+    ingredientesExcluidos: Object.keys(estadoIngredientes).filter(i => !estadoIngredientes[i])
+  });
+  actualizarBarraCarrito();
+  cerrarModal();
+});
+
+/* Carrito */
+const modalCarrito = $('modalCarrito');
+const listaCarrito = $('listaCarrito');
+$('mcNotaDomicilio').textContent = formatearCOP(COSTO_DOMICILIO);
+const subtotalCarrito = () => carrito.reduce((a, i) => a + i.precio * i.cantidad, 0);
+const unidadesCarrito = () => carrito.reduce((a, i) => a + i.cantidad, 0);
+function actualizarBarraCarrito() {
+  const u = unidadesCarrito();
+  if (u > 0) {
+    $('carritoCantidad').textContent = u;
+    $('carritoTotalBarra').textContent = formatearCOP(subtotalCarrito() + COSTO_DOMICILIO);
+    $('barraCarrito').classList.add('visible');
+  } else {
+    $('barraCarrito').classList.remove('visible');
+  }
+}
+function renderCarrito() {
+  listaCarrito.innerHTML = '';
+  if (carrito.length === 0) {
+    $('carritoVacio').style.display = 'block';
+    $('carritoContenido').style.display = 'none';
+    $('mcCantidadResumen').textContent = '0 productos';
+    return;
+  }
+  $('carritoVacio').style.display = 'none';
+  $('carritoContenido').style.display = 'block';
+  carrito.forEach((item, idx) => {
+    const fila = document.createElement('div');
+    fila.className = 'item';
+    fila.innerHTML = `
+      <div>
+        <div class="item-nombre">${item.nombre}</div>
+        ${item.ingredientesExcluidos.length ? `<div class="item-det">Sin: ${item.ingredientesExcluidos.join(', ')}</div>` : ''}
+        <div class="item-precio">${formatearCOP(item.precio * item.cantidad)}</div>
+      </div>
+      <div class="item-ctrl">
+        <div class="cantidad mini">
+          <button type="button" class="carrito-menos" data-idx="${idx}">−</button>
+          <span>${item.cantidad}</span>
+          <button type="button" class="carrito-mas" data-idx="${idx}">+</button>
+        </div>
+        <button type="button" class="quitar" data-idx="${idx}" title="Quitar">${ICONOS.basura}</button>
+      </div>`;
+    listaCarrito.appendChild(fila);
+  });
+  const u = unidadesCarrito();
+  $('mcCantidadResumen').textContent = `${u} producto${u !== 1 ? 's' : ''}`;
+  $('mcTotal').textContent = formatearCOP(subtotalCarrito() + COSTO_DOMICILIO);
+}
+listaCarrito.addEventListener('click', e => {
+  const menos = e.target.closest('.carrito-menos');
+  const mas = e.target.closest('.carrito-mas');
+  const quitar = e.target.closest('.quitar');
+  if (menos) {
+    const i = +menos.dataset.idx;
+    if (carrito[i].cantidad > 1) carrito[i].cantidad--;
+  } else if (mas) {
+    carrito[+mas.dataset.idx].cantidad++;
+  } else if (quitar) {
+    carrito.splice(+quitar.dataset.idx, 1);
+  } else return;
+  renderCarrito();
+  actualizarBarraCarrito();
+});
+function limpiarErrores() {
+  ['mcNombreCliente','mcDireccion'].forEach(id => $(id).classList.remove('campo-error'));
+  ['mcErrorNombre','mcErrorDireccion'].forEach(id => $(id).classList.remove('visible'));
+}
+function abrirModalCarrito() {
+  renderCarrito();
+  limpiarErrores();
+  aplicarPerfil();
+  modalCarrito.classList.add('abierto');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarModalCarrito() {
+  modalCarrito.classList.remove('abierto');
+  document.body.style.overflow = 'auto';
+}
+$('btnVerCarrito').addEventListener('click', abrirModalCarrito);
+$('mcCerrar').addEventListener('click', cerrarModalCarrito);
+modalCarrito.addEventListener('click', e => { if (e.target === modalCarrito) cerrarModalCarrito(); });
+
+$('mcEnviar').addEventListener('click', () => {
+  if (carrito.length === 0) return;
+  const nombreCliente = $('mcNombreCliente').value.trim();
+  const direccion = $('mcDireccion').value.trim();
+  const referencia = $('mcReferencia').value.trim();
+  limpiarErrores();
+  let hayError = false;
+  if (!nombreCliente) { $('mcNombreCliente').classList.add('campo-error'); $('mcErrorNombre').classList.add('visible'); hayError = true; }
+  if (!direccion) { $('mcDireccion').classList.add('campo-error'); $('mcErrorDireccion').classList.add('visible'); hayError = true; }
+  if (hayError) { (!nombreCliente ? $('mcNombreCliente') : $('mcDireccion')).focus(); return; }
+  const subtotal = subtotalCarrito();
+  const total = subtotal + COSTO_DOMICILIO;
+  let mensaje = `Datos para tu pedido:\n\nNombre completo: ${nombreCliente}\nDirección de entrega: ${direccion}`;
+  if (referencia) mensaje += `\nPunto de referencia: ${referencia}`;
+  if (perfil && perfil.tel) mensaje += `\nCelular: ${perfil.tel}`;
+  mensaje += `\n\nHola, quiero pedir:`;
+  carrito.forEach(item => {
+    mensaje += `\n${item.cantidad}x ${item.nombre} (${formatearCOP(item.precio)} c/u)`;
+    if (item.ingredientesExcluidos.length) mensaje += ` — Sin: ${item.ingredientesExcluidos.join(', ')}`;
+  });
+  mensaje += `\n\nSubtotal: ${formatearCOP(subtotal)}\nDomicilio: ${formatearCOP(COSTO_DOMICILIO)}\nTotal a pagar: ${formatearCOP(total)}`;
+  window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`, '_blank');
+  carrito = [];
+  $('mcNombreCliente').value = '';
+  $('mcDireccion').value = '';
+  $('mcReferencia').value = '';
+  actualizarBarraCarrito();
+  cerrarModalCarrito();
+});
+
+/* Registro de primera vez (se guarda solo en este celular) */
+const leer = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const guardar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+let perfil = null;
+try { perfil = JSON.parse(leer('kiry_perfil') || 'null'); } catch (e) {}
+const regOverlay = $('registro'), rgCard = $('rgCard'), rgLoader = $('rgLoader');
+const rgForm = $('rgForm'), rgOk = $('rgOk'), rgErr = $('rgErr');
+const RG_H = { form: 640, ok: 270 };
+function rgSize(k) { rgCard.style.removeProperty('--w'); rgCard.style.setProperty('--h', RG_H[k] + 'px'); }
+function rgCerrar() { regOverlay.classList.remove('abierto'); document.body.style.overflow = 'auto'; }
+function aplicarPerfil() {
+  if (!perfil) return;
+  if (!$('mcNombreCliente').value) $('mcNombreCliente').value = perfil.nombre;
+  if (!$('mcDireccion').value) $('mcDireccion').value = perfil.dir;
+}
+function mostrarRegistro() {
+  if (perfil) { aplicarPerfil(); return; }
+  if (leer('kiry_omitido')) return;
+  rgSize('form');
+  regOverlay.classList.add('abierto');
+  document.body.style.overflow = 'hidden';
+  rgForm.classList.add('on');
+  void rgForm.offsetWidth;
+  rgForm.classList.add('in');
+}
+$('rgOmitir').addEventListener('click', () => { guardar('kiry_omitido', '1'); rgCerrar(); });
+async function hashClave(t, sal) {
+  const datos = sal + ':' + t;
+  if (window.crypto && crypto.subtle) {
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(datos));
+    return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+  let h = 5381;
+  for (const c of datos) h = ((h << 5) + h + c.charCodeAt(0)) >>> 0;
+  return 'f' + h.toString(16);
+}
+rgForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const nombre = $('rgNombre').value.trim();
+  const tel = $('rgTel').value.trim();
+  const dir = $('rgDir').value.trim();
+  const correo = $('rgCorreo').value.trim().toLowerCase();
+  const clave = $('rgClave').value;
+  const clave2 = $('rgClave2').value;
+  let msg = '';
+  if (nombre.length < 3) msg = 'Escribe tu nombre completo.';
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo)) msg = 'Escribe un correo válido.';
+  else if (tel.replace(/\D/g, '').length < 7) msg = 'Escribe un número de celular válido.';
+  else if (dir.length < 5) msg = 'Escribe tu dirección de entrega.';
+  else if (clave.length < 6) msg = 'La contraseña debe tener mínimo 6 caracteres.';
+  else if (clave !== clave2) msg = 'Las contraseñas no coinciden.';
+  rgErr.classList.remove('show');
+  if (msg) {
+    rgErr.textContent = msg;
+    rgErr.classList.add('show');
+    rgForm.classList.remove('rg-shake'); void rgForm.offsetWidth; rgForm.classList.add('rg-shake');
+    return;
+  }
+  const sal = Math.random().toString(36).slice(2);
+  perfil = { nombre, correo, tel, dir, sal, clave: await hashClave(clave, sal) };
+  guardar('kiry_perfil', JSON.stringify(perfil));
+  rgForm.classList.remove('in'); rgForm.classList.add('out');
+  setTimeout(() => {
+    rgForm.classList.remove('on', 'out');
+    rgCard.style.setProperty('--w', '170px'); rgCard.style.setProperty('--h', '170px');
+    rgLoader.classList.add('on');
+  }, 350);
+  setTimeout(() => {
+    rgLoader.classList.remove('on');
+    $('rgNombreOk').textContent = nombre.split(' ')[0];
+    rgSize('ok');
+    rgOk.classList.add('on'); void rgOk.offsetWidth; rgOk.classList.add('in');
+    aplicarPerfil();
+  }, 1700);
+  setTimeout(rgCerrar, 4000);
+});
+</script>
+</body>
+</html>
